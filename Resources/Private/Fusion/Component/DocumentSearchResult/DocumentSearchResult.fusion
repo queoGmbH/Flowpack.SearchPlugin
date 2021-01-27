@@ -1,9 +1,30 @@
-prototype(Neos.Neos:DocumentSearchResult) < prototype(Neos.Fusion:Template) {
-    templatePath = 'resource://Flowpack.SearchPlugin/Private/Fusion/Component/DocumentSearchResult/DocumentSearchResult.html'
+prototype(Neos.Neos:DocumentSearchResult) < prototype(Neos.Fusion:Component) {
     node = ${node}
     highlight = ${Flowpack.SearchPlugin.Array.flatten(searchHit.highlight)}
 
     title = ${q(node).property('title')}
     description = ''
     parents = ${Array.reverse(q(node).parents('[instanceof Neos.Neos:Document]').get())}
+
+    # Might be overriden in custom package. Eg. via custom fusion component.
+    renderer = afx`
+        <Neos.Neos:NodeLink node={node}>{props.title}</Neos.Neos:NodeLink>
+        <div @if.hasHighlight={props.highlight}>
+            <p>
+                <Neos.Fusion:Loop items={props.highlight} itemName='fragment' iterationName='fragmentIterator'>
+                    {fragment}{fragmentIterator.isLast ? '&hellip;' : ''}
+                </Neos.Fusion:Loop>
+            </p>
+
+            <nav class="breadcrumb" aria-labelledby={'path-' + node.identifier}>
+                <span id={'path-' + node.identifier}>{Translation.translate('Flowpack.SearchPlugin:Main:path')}:</span>
+                <ul>
+                    <Neos.Fusion:Loop items={props.parents} itemName='parent'>
+                        <li><Neos.Neos:NodeLink node={parent}>{parent.label}</Neos.Neos:NodeLink></li>
+                    </Neos.Fusion:Loop>
+                    <li><Neos.Neos:NodeLink node={node}>{node.label}</Neos.Neos:NodeLink></li>
+                </ul>
+            </nav>
+        </div>
+    `
 }
