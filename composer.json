@@ -4,12 +4,12 @@
     "type": "neos-package",
     "description": "Plugin for search integration via content node",
     "require": {
-        "neos/content-repository": "^4.0 || ^5.0 || ^7.0 || ^8.0 || dev-master",
-        "neos/content-repository-search": "^4.0 || dev-master",
-        "neos/eel": "^5.0 || ^6.0 || ^7.0 || ^8.0 || dev-master",
-        "neos/flow": "^5.0 || ^6.0 || ^7.0 || ^8.0 || dev-master",
-        "neos/fusion": "^4.0 || ^5.0 || ^7.0 || ^8.0 || dev-master",
-        "neos/neos": "^4.0 || ^5.0 || ^7.0 || ^8.0 || dev-master"
+        "neos/content-repository": "^4.0 || ^5.0 || ^7.0 || ^8.0 || ^9.0 || dev-master",
+        "neos/content-repository-search": "^4.0 || dev-neos9 || dev-master",
+        "neos/eel": "^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || dev-master",
+        "neos/flow": "^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0 || dev-master",
+        "neos/fusion": "^4.0 || ^5.0 || ^7.0 || ^8.0 || ^9.0 || dev-master",
+        "neos/neos": "^4.0 || ^5.0 || ^7.0 || ^8.0 || ^9.0 || dev-master"
     },
     "conflict": {
         "flowpack/elasticsearch-contentrepositoryadaptor": "<7.0.0"
@@ -21,6 +21,12 @@
     "autoload": {
         "psr-4": {
             "Flowpack\\SearchPlugin\\": "Classes"
+        }
+    },
+    "repositories": {
+        "queo/content-repository-search": {
+            "type": "git",
+            "url": "https://github.com/queoGmbH/content-repository-search.git"
         }
     },
     "extra": {
